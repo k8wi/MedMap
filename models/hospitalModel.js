@@ -37,6 +37,30 @@ const hospitalSchema = new mongoose.Schema(
         type: String,
         required: [true, "map is required"],
       },    
+      phone:{
+        type:String,
+        required:true,
+     },
+      img1:{
+         type:String,
+         required:true,
+      },
+      img2:{
+        type:String,
+        required:true,
+      },
+      img3:{
+        type:String,
+        required:true,
+      },
+      img4:{
+        type:String,
+        required:true,
+      },
+      img5:{
+        type:String,
+        required:true,
+}
 
   },
  

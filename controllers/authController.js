@@ -4,8 +4,15 @@ const jwt = require("jsonwebtoken");
 
 const registerController = async (req, res) => {
   try {
-    const exisitingUser = await userModel.findOne({ email: req.body.email });
+    let exisitingUser = await userModel.findOne({ email: req.body.email });
     //validation
+    if (exisitingUser) {
+      return res.status(200).send({
+        success: false,
+        message: "User ALready exists",
+      });
+    }
+    exisitingUser = await userModel.findOne({ phone: req.body.phone });
     if (exisitingUser) {
       return res.status(200).send({
         success: false,
@@ -99,21 +106,5 @@ const currentUserController = async (req, res) => {
   }
 };
 
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await userModel.find();
-    res.status(200).json({
-      success: true,
-      message: "Users fetched successfully",
-      users,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: "Error in fetching users",
-      error,
-    });
-  }
-};
-module.exports = { registerController, loginController,currentUserController,getAllUsers };
+
+module.exports = { registerController, loginController,currentUserController };

@@ -2,25 +2,16 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
+   
     role: {
       type: String,
       required: [true, "role is required"],
-      enum: ["user", "hospital"],
+      enum: ["admin", "user"],
     },
     name: {
       type: String,
       required: function () {
-        if (this.role === "user" || this.role === "hospital") {
-          return true;
-        }
-        return false;
-      },
-    },
-   
-    hospitalName: {
-      type: String,
-      required: function () {
-        if (this.role === "hospital") {
+        if (this.role === "user" || this.role === "admin") {
           return true;
         }
         return false;
@@ -35,16 +26,23 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "password is requied"],
     },
-    website: {
-      type: String,
-    },
-    address: {
-      type: String,
-      required: [true, "address is required"],
-    },
+    
+    
+
     phone: {
       type: String,
       required: [true, "phone numbe is required"],
+      unique: true,
+    },
+    gender: {
+      type: String, // You can choose other types like 'String', 'Number', 'Enum', etc. based on your requirements
+      enum: ['M', 'F', 'Other'], // Optional: If you want to restrict the values to a specific set
+      // You can customize this based on your requirements
+    },
+    
+    dateOfBirth: {
+      type: Date, // You can choose 'Date' type for date of birth
+      // You can customize this based on your requirements
     },
   },
   { timestamps: true }
